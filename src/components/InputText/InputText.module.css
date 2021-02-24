@@ -1,0 +1,25 @@
+.superInput {
+  border: 2px solid;
+  border-radius: 4px;
+  font-size: 1rem;
+  margin: 0.25rem;
+  min-width: 125px;
+  padding: 0.5rem;
+  transition: border-color 0.5s ease-out;
+  outline: none;
+}
+
+.superInput::placeholder {
+  overflow: hidden;
+  font-size: 14px;
+}
+
+.errorInput {
+  border-color: red;
+  background: url("https://assets.digitalocean.com/labs/icons/exclamation-triangle-fill.svg") no-repeat 95% 50% lightsalmon;
+  background-size: 25px;
+}
+
+.error {
+  color: red;
+}

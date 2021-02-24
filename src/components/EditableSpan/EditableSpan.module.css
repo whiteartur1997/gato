@@ -1,0 +1,8 @@
+.superEditableSpan {
+  position: relative;
+}
+
+.editableSpanPencil {
+  width: 14px;
+  height: 14px;
+}
