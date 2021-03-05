@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom"
+import { PATH } from "../../components/Routes/Routes"
 import styles from './Header.module.css'
 
 export const Header = () => {
@@ -7,22 +8,22 @@ export const Header = () => {
       <nav className={styles.nav}>
         <ul className={styles.navList}>
           <li className={styles.navItem}>
-            <NavLink className={styles.navLink} to="/profile">Profile</NavLink>
+            <NavLink className={styles.navLink} to={PATH.PROFILE}>Profile</NavLink>
           </li>
           <li className={styles.navItem}>
-            <NavLink className={styles.navLink} to="/registration">Registration</NavLink>
+            <NavLink className={styles.navLink} to={PATH.REGISTRATION}>Registration</NavLink>
           </li>
           <li className={styles.navItem}>
-            <NavLink className={styles.navLink} to="/login">Login</NavLink>
+            <NavLink className={styles.navLink} to={PATH.LOGIN}>Login</NavLink>
           </li>
           <li className={styles.navItem}>
-            <NavLink className={styles.navLink} to="/new-password">New Password</NavLink>
+            <NavLink className={styles.navLink} to={PATH.NEWPASSWORD}>New Password</NavLink>
           </li>
           <li className={styles.navItem}>
-            <NavLink className={styles.navLink} to="/forgot-password">Forgot Password</NavLink>
+            <NavLink className={styles.navLink} to={PATH.FORGOTPASSWORD}>Forgot Password</NavLink>
           </li>
           <li className={styles.navItem}>
-            <NavLink className={styles.navLink} to="/test-components">Test</NavLink>
+            <NavLink className={styles.navLink} to={PATH.TESTCOMPONENTS}>Test</NavLink>
           </li>
         </ul>
       </nav>
