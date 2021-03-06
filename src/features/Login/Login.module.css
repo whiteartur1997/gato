@@ -4,6 +4,8 @@
     text-align: center;
     padding-top: 50px ;
     font-size: 20px;
+    background-color: #cccccc;
+
 
 }
 
@@ -23,7 +25,13 @@
     width: 300px;
 }
 
+.loginContainer__loginBlock__error{
+    height: 40px;
+    font-size: 30px;
+    color: red
+}
+
 .loginContainer__loginBlock__button{
-    margin-top: 10px;
+
     font-size: 30px;
 }
