@@ -5,9 +5,15 @@
   width: 100%;
   height: 80px;
   border-bottom: 2px solid green;
-  padding: 0px 30px;
+  padding: 0 30px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.header__nav{
+  display: flex;
+  justify-content: space-between;
 }
 
 .navList {
@@ -16,8 +22,10 @@
 }
 
 .navItem {
-  padding: 10px 5px;
+  padding: 10px 20px;
   border-radius: 5px;
+  font-weight: 500;
+  font-size: 20px;
 }
 
 .navItem:hover {
@@ -34,7 +42,22 @@
   text-decoration: none;
 }
 
-.navItem:hover .navLink {
+.navLink:hover .navItem {
   color: #fff;
 }
 
+.header__logout{
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+
+  color: cornflowerblue;
+  font-weight: 600;
+  cursor: pointer;
+}
+.header__logout:hover{
+  cursor: pointer;
+  color: white;
+  background-color: cornflowerblue;
+
+}

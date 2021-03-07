@@ -1,0 +1,37 @@
+.loginContainer{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 50px ;
+    font-size: 20px;
+    background-color: #cccccc;
+
+
+}
+
+.loginContainer__title{
+    font-size: 50px;
+    padding-bottom: 25px ;
+}
+.loginContainer__loginBlock{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.loginContainer__loginBlock__input{
+    font-size: 20px;
+    margin-bottom: 5px;
+    width: 300px;
+}
+
+.loginContainer__loginBlock__error{
+    height: 40px;
+    font-size: 30px;
+    color: red
+}
+
+.loginContainer__loginBlock__button{
+
+    font-size: 30px;
+}
