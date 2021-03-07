@@ -2,37 +2,57 @@ import {NavLink} from "react-router-dom"
 import {PATH} from "../../components/Routes/Routes"
 import styles from './Header.module.css'
 
-export const Header = () => {
-  return (
-      <div className={styles.header}>
-        <nav className={styles.nav}>
-          <ul className={styles.navList}>
-            <div className={styles.header}>
-              <nav className={styles.nav}>
+const Header = (props: HeaderPropsType) => {
+    return (
+        <div className={styles.header}>
+            <nav className={styles.header__nav}>
                 <ul className={styles.navList}>
-                  <li className={styles.navItem}>
-                    <NavLink className={styles.navLink} to={PATH.PROFILE}>Profile</NavLink>
-                  </li>
-                  <li className={styles.navItem}>
-                    <NavLink className={styles.navLink} to={PATH.REGISTRATION}>Registration</NavLink>
-                  </li>
-                  <li className={styles.navItem}>
-                    <NavLink className={styles.navLink} to={PATH.LOGIN}>Login</NavLink>
-                  </li>
-                  <li className={styles.navItem}>
-                    <NavLink className={styles.navLink} to={PATH.NEWPASSWORD}>New Password</NavLink>
-                  </li>
-                  <li className={styles.navItem}>
-                    <NavLink className={styles.navLink} to={PATH.FORGOTPASSWORD}>Forgot Password</NavLink>
-                  </li>
-                  <li className={styles.navItem}>
-                    <NavLink className={styles.navLink} to={PATH.TESTCOMPONENTS}>Test</NavLink>
-                  </li>
+
+                    <NavLink className={styles.navLink} to={PATH.PROFILE}>
+                        <li className={styles.navItem}>
+                            Profile
+                        </li>
+                    </NavLink>
+
+                    <NavLink className={styles.navLink} to={PATH.REGISTRATION}>
+                        <li className={styles.navItem}>
+                            Registration
+                        </li>
+                    </NavLink>
+
+                    <NavLink className={styles.navLink} to={PATH.LOGIN}>
+                        <li className={styles.navItem}>
+                            Login
+                        </li>
+                    </NavLink>
+
+                    <NavLink className={styles.navLink} to={PATH.NEWPASSWORD}>
+                        <li className={styles.navItem}>
+                            New Password
+                        </li>
+                    </NavLink>
+
+                    <NavLink className={styles.navLink} to={PATH.FORGOTPASSWORD}>
+                        <li className={styles.navItem}>
+                            Forgot Password
+                        </li>
+                    </NavLink>
+
+                    <NavLink className={styles.navLink} to={PATH.TESTCOMPONENTS}>
+                        <li className={styles.navItem}>
+                            Test
+                        </li>
+                    </NavLink>
                 </ul>
-              </nav>
-            </div>
-          </ul>
-        </nav>
-      </div>
-  )
+            </nav>
+            <div hidden={!props.authMe} className={styles.header__logout} onClick={props.onLogoutHandler}><span>Logout</span></div>
+        </div>
+    )
 }
+
+type HeaderPropsType ={
+    authMe: boolean
+    onLogoutHandler : () => void
+}
+
+export default Header
