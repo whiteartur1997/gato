@@ -19,13 +19,9 @@ export const PATH = {
 
 function Routes() {
   return (
-    <div>
+    <>
       {/*Switch выбирает первый подходящий роут*/}
       <Switch>
-
-        {/*в начале мы попадаем на страницу "/" и переходим сразу на страницу PRE_JUNIOR*/}
-        {/*exact нужен чтоб указать полное совподение (что после "/" ничего не будет)*/}
-        {/* <Route path={"/"} exact render={() => <Redirect to={PATH.LOGIN} />} /> */}
         <Route path={PATH.LOGIN} render={() => <Login />} />
         <Route path={PATH.REGISTRATION} render={() => <Registration />} />
         <Route path={PATH.PROFILE} render={() => <Profile />} />
@@ -36,7 +32,7 @@ function Routes() {
         {/*у этого роута нет пути, он отрисуется если пользователь захочет попасть на несуществующую страницу*/}
         <Route render={() => <Error404 />} />
       </Switch>
-    </div>
+    </>
   );
 }
 
