@@ -2,13 +2,14 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL: "http://localhost:7542/2.0/",
+    withCredentials: true
 });
 
 
 export const authAPI = {
 
     auth() {
-        return instance.get<AuthMeResponseType>(`auth/me`).then(response => response.data)
+        return instance.post<AuthMeResponseType>(`auth/me`).then(response => response.data)
     },
 
     login(email: string, password: string, rememberMe: boolean) {
@@ -16,7 +17,7 @@ export const authAPI = {
     },
 
     logout() {
-        return instance.delete<LogoutResponseType>(`auth/login` ).then(response => response.data)
+        return instance.delete<LogoutResponseType>(`auth/me` ).then(response => response.data)
     },
 
 

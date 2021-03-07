@@ -8,6 +8,12 @@
   padding: 0 30px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
+}
+
+.header__nav{
+  display: flex;
+  justify-content: space-between;
 }
 
 .navList {
@@ -40,3 +46,18 @@
   color: #fff;
 }
 
+.header__logout{
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 20px;
+
+  color: cornflowerblue;
+  font-weight: 600;
+  cursor: pointer;
+}
+.header__logout:hover{
+  cursor: pointer;
+  color: white;
+  background-color: cornflowerblue;
+
+}
