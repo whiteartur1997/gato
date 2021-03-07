@@ -1,0 +1,11 @@
+
+.registrationPage{
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.registrationBlock{
+    border: 1px solid black;
+    padding: 20px;
+}
