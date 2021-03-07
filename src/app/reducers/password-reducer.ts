@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
-import {authApi} from "../../api/auth-api";
 import {ForgotPasswordRequestType} from "../../features/password/ForgotPassword/ForgotPassword";
+import {authAPI} from "../../dal/authApi";
 
 const initialState = {
     successSent: false as boolean,
@@ -25,7 +25,7 @@ export const passwordReducer = (state: InitialStateType = initialState, action: 
 export const sendForgotPasswordRequest = (requestData: ForgotPasswordRequestType) => async (dispatch: Dispatch) => {
     let res;
     try {
-        res = await authApi.forgotPassword(requestData);
+        res = await authAPI.forgotPassword(requestData);
         if (res.status === 200) {
             if (res.data.info) {
                 dispatch(forgotPasswordMessageAC(res.data.info))

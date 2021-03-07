@@ -1,4 +1,5 @@
 import axios from "axios";
+import {ForgotPasswordRequestType} from "../features/password/ForgotPassword/ForgotPassword";
 
 const instance = axios.create({
     baseURL: "http://localhost:7542/2.0/",
@@ -7,6 +8,10 @@ const instance = axios.create({
 
 
 export const authAPI = {
+
+    forgotPassword(requestData: ForgotPasswordRequestType) {
+        return axios.post<{info: string}>("https://neko-back.herokuapp.com/2.0/auth/forgot", requestData, {withCredentials: true})
+    },
 
     auth() {
         return instance.post<AuthMeResponseType>(`auth/me`).then(response => response.data)

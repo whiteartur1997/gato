@@ -7,7 +7,7 @@ const RedirectToLogin = (Component: any) => {
     let authMe = useSelector<AppRootStateType, boolean>(state => state.auth.authMe)
 
     if (!authMe) return <Redirect to={'/login'}/>
-    return <Component/>
+    return <Component  />
 }
 
 export default RedirectToLogin

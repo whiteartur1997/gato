@@ -1,4 +1,5 @@
-// import RedirectToLogin from "../../HOC/RedirectToLogin";
+import RedirectToLogin from "../../HOC/RedirectToLogin";
+import {connect} from "react-redux";
 
 const Profile = () => {
 
@@ -6,5 +7,5 @@ const Profile = () => {
   return <div>Profile</div>
 }
 
-// export default RedirectToLogin(Profile)
+// export default connect(RedirectToLogin)(Profile)
 export default Profile
