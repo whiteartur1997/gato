@@ -5,6 +5,7 @@ import { authReducer } from "./reducers/auth-reducer";
 import { profileReducer } from "./reducers/profile-reducer";
 import { testReducer } from "./reducers/test-reducer";
 import {passwordReducer} from "./reducers/password-reducer";
+import {registrationReducer} from './reducers/registration-reducer';
 
 
 const rootReducer = combineReducers({
@@ -12,9 +13,13 @@ const rootReducer = combineReducers({
   auth: authReducer,
   profile: profileReducer,
   test: testReducer,
-  password: passwordReducer
+  password: passwordReducer,
+  registration:registrationReducer
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>
 
 export const store = createStore(rootReducer, applyMiddleware(thunk));
+
+//@ts-ignore
+window.store= store;

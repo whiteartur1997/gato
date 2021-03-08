@@ -1,7 +1,10 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Redirect} from 'react-router-dom';
 import styles from './Registration.module.css';
 import {useFormik} from 'formik';
+import {useDispatch, useSelector} from 'react-redux';
+import {registration, RegistrationStateType} from '../../app/reducers/registration-reducer';
+import {AppRootStateType} from '../../app/store';
 
 
 /**
@@ -35,7 +38,7 @@ const validate = (values: RegistrationFormType) => {
     if (!values.confirmPassword) {
         errors.confirmPassword = 'Required';
     }
-    if(values.password !== values.confirmPassword){
+    if (values.password !== values.confirmPassword) {
         errors.confirmPassword = `Confirm password isn't equal`;
     }
 
@@ -43,6 +46,9 @@ const validate = (values: RegistrationFormType) => {
 };
 
 export const Registration = () => {
+    const dispatch = useDispatch();
+    const {isRegistrationIn, error} = useSelector<AppRootStateType, RegistrationStateType>(state => state.registration);
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -51,16 +57,24 @@ export const Registration = () => {
         },
         validate,
         onSubmit: values => {
+            debugger
+            let data = {
+                email: values.email,
+                password: values.password
+            }
             console.log(values);
+            dispatch(registration(data));
         },
     });
-
+    if (isRegistrationIn) {
+        return <Redirect to={'login'}/>
+    }
     return <div className={styles.registrationPage}>
 
         <h1 className={styles.registrationPage__title}>Registration</h1>
 
         <div className={styles.registrationPage__registrationBlock}>
-            <div className={styles.registrationPage__registrationBlock__error}>'error'</div>
+            <div className={styles.registrationPage__registrationBlock__error}>{error}</div>
             <form onSubmit={formik.handleSubmit}>
                 <div>
                     {/*<label htmlFor="email">Email: </label>*/}
@@ -96,8 +110,9 @@ export const Registration = () => {
                         <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
                 </div>
                 <button className={styles.registrationPage__registrationBlock__button}
-                    type={'submit'}
-                >Sign up</button>
+                        type={'submit'}
+                >Sign up
+                </button>
             </form>
             <div>
                 <NavLink to={'login'}> login</NavLink>
