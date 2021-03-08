@@ -1,11 +1,36 @@
 
-.registrationPage{
+.registrationPage {
     display: flex;
-    justify-content: center;
-    padding: 10px;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 50px;
+    font-size: 20px;
+    background-color: #cccccc;
 }
 
-.registrationBlock{
-    border: 1px solid black;
-    padding: 20px;
+.registrationPage__title {
+    font-size: 50px;
+    padding-bottom: 25px;
+}
+
+.registrationPage__registrationBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.registrationPage__registrationBlock__input {
+    font-size: 20px;
+    margin-bottom: 5px;
+    width: 300px;
+}
+
+.registrationPage__registrationBlock__error {
+    height: 40px;
+    font-size: 30px;
+    color: red
+}
+
+.registrationPage__registrationBlock__button {
+    font-size: 30px;
 }
