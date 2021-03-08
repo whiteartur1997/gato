@@ -35,6 +35,9 @@ const validate = (values: RegistrationFormType) => {
     if (!values.confirmPassword) {
         errors.confirmPassword = 'Required';
     }
+    if(values.password !== values.confirmPassword){
+        errors.confirmPassword = `Confirm password isn't equal`;
+    }
 
     return errors;
 };
