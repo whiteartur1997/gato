@@ -1,56 +1,67 @@
 import React from "react"
 import {NavLink, Redirect} from "react-router-dom"
 import style from "./Login.module.css"
+import {FormikValues} from "formik/dist/types";
 
 const Login = (props: LoginPropsType) => {
-    if (props.authMe) return <Redirect to="/profile" />
+
+
+    if (props.authMe) return <Redirect to="/profile"/>
     return <div className={style.loginContainer}>
 
         <h1 className={style.loginContainer__title}>Login</h1>
+        <form onSubmit={props.formik.handleSubmit}>
+            <div className={style.loginContainer__loginBlock}>
+                <div>
+                    <input className={style.loginContainer__loginBlock__input}
+                           id={"email"}
+                           name={"email"}
+                           type={"email"}
+                           placeholder={"Enter email"}
+                           value={props.formik.values.email}
+                           onChange={props.formik.handleChange}
+                    />
+                </div>
+                <div>
+                    <input className={style.loginContainer__loginBlock__input}
+                           id={"password"}
+                           name={"password"}
+                           type={"password"}
+                           placeholder={"Enter password"}
+                           value={props.formik.values.password}
+                           onChange={props.formik.handleChange}
+                    />
+                </div>
+                <div>
+                    <input
+                        id={"remember"}
+                        name={"remember"}
+                        type={"checkbox"}
+                        checked={props.formik.values.remember}
+                        onChange={props.formik.handleChange}/>
+                    <span> Remember me</span>
+                </div>
+                <NavLink to={'/forgot-password'}>Forgot password?</NavLink>
 
-        <div className={style.loginContainer__loginBlock}>
-            <div><input className={style.loginContainer__loginBlock__input}
-                        type="text"
-                        placeholder={"Enter email"}
-                        value={props.inputEmail}
-                        onChange={(e) => props.setInputEmail(e.currentTarget.value)}
-            />
+                <div className={style.loginContainer__loginBlock__error}>{props.error}</div>
+
+                <div>
+                    <input className={style.loginContainer__loginBlock__button}
+                           type="submit"
+                           value={"Sign in"}
+                    />
+                </div>
+
+                <NavLink to={'/registration'}>Registration</NavLink>
             </div>
-            <div><input className={style.loginContainer__loginBlock__input}
-                        type="password"
-                        placeholder={"Enter password"}
-                        value={props.inputPass}
-                        onChange={(e) => props.setInputPass(e.currentTarget.value)}
-            />
-            </div>
-            <label>
-                <input type="checkbox" checked={props.remember}
-                       onChange={(e) => props.setInputRemember(e.currentTarget.checked)}/>
-                <span> Remember me</span>
-            </label>
-            <NavLink to={'/forgot-password'}>Forgot password?</NavLink>
-            <div className={style.loginContainer__loginBlock__error}>{props.error}</div>
-            <div><input className={style.loginContainer__loginBlock__button}
-                        type="submit"
-                        value={"Sign in"}
-                        onClick={props.onSignInHandler}
-            />
-            </div>
-            <NavLink to={'/registration'}>Registration</NavLink>
-        </div>
+        </form>
     </div>
 }
 
 type LoginPropsType = {
-    inputPass: string
-    error: string | null
-    setInputPass: (inputPass: string) => void
-    inputEmail: string
-    setInputEmail: (inputEmail: string) => void
-    remember: boolean
+    formik: FormikValues
     authMe: boolean
-    setInputRemember: (remember: boolean) => void
-    onSignInHandler: () => void
+    error: string | null
 }
 
 export default Login
