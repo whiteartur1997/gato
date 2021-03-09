@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux';
 import {authAPI, RegistrationDataType} from '../../dal/authApi';
+import {setStatus, SetStatusAC} from './app-reducer';
 
 const initialState = {
     error: null as null | string,
@@ -7,7 +8,7 @@ const initialState = {
 };
 export type RegistrationStateType = typeof initialState;
 
-export const registrationReducer = (state: RegistrationStateType = initialState, action: ActionsType): RegistrationStateType => {
+export const registrationReducer = (state: RegistrationStateType = initialState, action: RegistrationActionsType): RegistrationStateType => {
     switch (action.type) {
         case 'REGISTRATION/SET_ERROR':
             return {
@@ -38,16 +39,27 @@ export const setIsRegistrationIn = (value: boolean) => {
     } as const
 }
 //thunks
-export const registration = (values: RegistrationDataType) => async (dispatch: Dispatch) => {
+export const registration = (values: RegistrationDataType) => async (dispatch: Dispatch<RegistrationActionsType | SetStatusAC>) => {
+    dispatch(setStatus('loading'));
     try {
         await authAPI.registration(values);
         dispatch(setIsRegistrationIn(true));
+        dispatch(setStatus('success'));
     } catch (e) {
-        dispatch(setError(e.response.data.error));
-        setTimeout(() => {
-            dispatch(setError(null));
-        }, 3000);
+        if (e.response) {
+            dispatch(setError(e.response.data.error));
+            dispatch(setStatus('error'));
+            setTimeout(() => {
+                dispatch(setError(null));
+            }, 3000);
+        } else {
+            dispatch(setError(e.message));
+            dispatch(setStatus('error'));
+            setTimeout(() => {
+                dispatch(setError(null));
+            }, 3000);
+        }
     }
 }
 
-type ActionsType = ReturnType<typeof setError> | ReturnType<typeof setIsRegistrationIn>;
+type RegistrationActionsType = ReturnType<typeof setError> | ReturnType<typeof setIsRegistrationIn>;
