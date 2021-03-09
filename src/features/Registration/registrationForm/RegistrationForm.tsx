@@ -40,11 +40,14 @@ const validate = (values: RegistrationFormType) => {
 
     if (!values.password) {
         errors.password = 'Required';
+    }else if (values.password.length <=7) {
+        errors.password = 'Must be 8 characters or more';
     }
     if (!values.confirmPassword) {
         errors.confirmPassword = 'Required';
-    }
-    if (values.password !== values.confirmPassword) {
+    }else if (values.confirmPassword.length <=7) {
+        errors.confirmPassword = 'Must be 8 characters or more';
+    } else if (values.password !== values.confirmPassword) {
         errors.confirmPassword = `Confirm password isn't equal`;
     }
 
