@@ -1,0 +1,15 @@
+.Profile {
+    width: 70%;
+    margin: 50px auto;
+    display: flex;
+}
+
+.avatarWrapper, .infoWrapper {
+    display: flex;
+    width: 50%;
+    flex-direction: column;
+}
+
+.infoWrapper {
+    padding: 10px;
+}

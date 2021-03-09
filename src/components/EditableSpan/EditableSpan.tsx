@@ -71,7 +71,7 @@ const EditableSpan: React.FC<EditableSpanType> = (
 
                         {...restSpanProps}
                     >
-                        <img className={s.editableSpanPencil} src={pencil} />
+                        <img alt="span" className={s.editableSpanPencil} src={pencil} />
                         {children || innerValue}
                     </span>
                 )

@@ -1,5 +1,6 @@
 import {Dispatch} from "redux"
 import {authAPI} from "../../dal/authApi";
+import {ProfileStateType, setProfileDataAC} from "./profile-reducer";
 
 type InitialStateType = {
     email: string,
@@ -17,6 +18,7 @@ export type DispatchActionTypeLogin =
     | ReturnType<typeof setEmail>
     | ReturnType<typeof setAuthMe>
     | ReturnType<typeof setError>
+    | ReturnType<typeof setProfileDataAC>;
 
 
 export const authReducer = (state: InitialStateType = initialState, action: DispatchActionTypeLogin): InitialStateType => {
@@ -64,10 +66,16 @@ export const getAuth = () => {
 
     return (dispatch: Dispatch<DispatchActionTypeLogin>) => {
 
-         authAPI.auth().then(data => {
-            dispatch(setAuthMe(true))
+        authAPI.auth().then(data => {
+            const profileData: ProfileStateType = {
+                avatar: data.avatar || "",
+                name: data.name,
+                created: data.created,
+                publicCards: data.publicCardPacksCount
+            }
+            dispatch(setAuthMe(true));
+            dispatch(setProfileDataAC(profileData))
         }).catch(rej => {
-             console.log(rej)
             dispatch(setAuthMe(false))
         })
 
@@ -81,11 +89,16 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
     return (dispatch: Dispatch<DispatchActionTypeLogin>) => {
 
         authAPI.login(email, password, rememberMe).then(res => {
+                const profileData: ProfileStateType = {
+                    avatar: res.avatar || "",
+                    name: res.name,
+                    created: res.created,
+                    publicCards: res.publicCardPacksCount
+                }
                 dispatch(setError(null))
                 dispatch(setAuthMe(true))
                 dispatch(setEmail(res.email))
-                //setName ...
-                //setPhoto ...
+                dispatch(setProfileDataAC(profileData))
             }
         ).catch(e => {
             dispatch(setError(e.response.data.error))
@@ -97,7 +110,6 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
 export const logout = () => {
 
     return (dispatch: Dispatch<DispatchActionTypeLogin>) => {
-debugger
         authAPI.logout().then(data => {
             dispatch(setAuthMe(false))
         })
