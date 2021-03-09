@@ -3,7 +3,7 @@ import {authAPI, RegistrationDataType} from '../../dal/authApi';
 
 const initialState = {
     error: null as null | string,
-    isRegistrationIn:false
+    isRegistrationIn: false
 };
 export type RegistrationStateType = typeof initialState;
 
@@ -38,16 +38,16 @@ export const setIsRegistrationIn = (value: boolean) => {
     } as const
 }
 //thunks
-export const registration = (values: RegistrationDataType) => (dispatch: Dispatch) => {
-    authAPI.registration(values)
-        .then(res => {
-          dispatch(setIsRegistrationIn(true));
-        }).catch(e => {
+export const registration = (values: RegistrationDataType) => async (dispatch: Dispatch) => {
+    try {
+        await authAPI.registration(values);
+        dispatch(setIsRegistrationIn(true));
+    } catch (e) {
         dispatch(setError(e.response.data.error));
         setTimeout(() => {
             dispatch(setError(null));
-        }, 3000)
-    })
+        }, 3000);
+    }
 }
 
 type ActionsType = ReturnType<typeof setError> | ReturnType<typeof setIsRegistrationIn>;
