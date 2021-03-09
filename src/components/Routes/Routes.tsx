@@ -22,6 +22,7 @@ function Routes() {
     <>
       {/*Switch выбирает первый подходящий роут*/}
       <Switch>
+        <Route path="/" exact render={() => <LoginContainer />} />
         <Route path={PATH.LOGIN} render={() => <LoginContainer />} />
         <Route path={PATH.REGISTRATION} render={() => <Registration />} />
         <Route path={PATH.PROFILE} render={() => <Profile />} />

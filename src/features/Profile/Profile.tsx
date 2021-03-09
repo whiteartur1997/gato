@@ -1,14 +1,22 @@
 import classes from "./Profile.module.css";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../app/store";
 import {Redirect} from "react-router-dom";
 import {PATH} from "../../components/Routes/Routes";
+import {useEffect} from "react";
+import {getAuth} from "../../app/reducers/auth-reducer";
 
 const Profile = () => {
 
   const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.authMe);
   const {name, avatar, publicCards, created} = useSelector((state:AppRootStateType) => state.profile)
   const src = avatar || "https://img-16.ccm2.net/BtdjVGwSisLoejfsY0AB3ZKEZRg=/600x/883ba4dee45849ffbdecb3fbe8f3d0a2/ccm-faq/mona.gif";
+
+  let dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getAuth())
+  }, [])
 
   if(!isLoggedIn) {
     return <Redirect to={PATH.LOGIN} />
