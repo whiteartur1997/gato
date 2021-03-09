@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Redirect} from 'react-router-dom';
 import styles from './Registration.module.css';
 import {useDispatch, useSelector} from 'react-redux';
@@ -7,13 +7,13 @@ import {AppRootStateType} from '../../app/store';
 import {RegistrationForm} from './registrationForm/RegistrationForm';
 import {RegistrationDataType} from '../../dal/authApi';
 
-export const Registration = () => {
+export const Registration = React.memo(() => {
     const dispatch = useDispatch();
     const {isRegistrationIn} = useSelector<AppRootStateType, RegistrationStateType>(state => state.registration);
 
-    const registrationHandler = (values: RegistrationDataType) => {
+    const registrationHandler = useCallback((values: RegistrationDataType) => {
         dispatch(registration(values))
-    }
+    },[]);
 
     if (isRegistrationIn) {
         return <Redirect to={'login'}/>
@@ -22,4 +22,4 @@ export const Registration = () => {
         <h1 className={styles.registrationPage__title}>Registration</h1>
         <RegistrationForm registration={registrationHandler}/>
     </div>
-}
+})
