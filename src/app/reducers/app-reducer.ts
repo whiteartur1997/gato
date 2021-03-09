@@ -3,7 +3,7 @@ export type StatusType = 'idle' | 'loading' | 'success' | 'error';
 const initialState = {
     status: 'idle' as StatusType
 };
-type AppStateType = typeof initialState;
+export type AppStateType = typeof initialState;
 
 export const appReducer = (state: AppStateType = initialState, action: ActionsType): AppStateType => {
     switch (action.type) {
