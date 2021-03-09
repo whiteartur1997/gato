@@ -10,6 +10,7 @@ export const HeaderContainer = () => {
 
     const onLogoutHandler = () => {
       dispatch(logout())
+
     }
 
     return <Header
