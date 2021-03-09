@@ -6,10 +6,9 @@ import {registration, RegistrationStateType} from '../../app/reducers/registrati
 import {AppRootStateType} from '../../app/store';
 import {RegistrationForm} from './registrationForm/RegistrationForm';
 import {RegistrationDataType} from '../../dal/authApi';
-import {StatusType} from '../../app/reducers/app-reducer';
-import {Preloader} from '../../components/Common/Preloader/Preloader';
-import {log} from 'util';
-import {PATH} from '../../components/Routes/Routes';
+import {StatusType} from "../../app/reducers/app-reducer";
+import {Preloader} from "../../components/Common/Preloader/Preloader";
+import {PATH} from "../../components/Routes/Routes";
 
 export const Registration = React.memo(() => {
     const dispatch = useDispatch();
