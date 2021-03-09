@@ -1,11 +1,15 @@
 
-.registrationPage{
+.registrationPage {
     display: flex;
-    justify-content: center;
-    padding: 10px;
+    flex-direction: column;
+    text-align: center;
+    padding-top: 50px;
+    font-size: 20px;
+    background-color: #cccccc;
 }
 
-.registrationBlock{
-    border: 1px solid black;
-    padding: 20px;
+.registrationPage__title {
+    font-size: 50px;
+    padding-bottom: 25px;
 }
+

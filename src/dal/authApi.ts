@@ -1,8 +1,9 @@
-import axios from "axios";
-import {ForgotPasswordRequestType} from "../features/password/ForgotPassword/ForgotPassword";
+import axios from 'axios';
+import {ForgotPasswordRequestType} from '../features/password/ForgotPassword/ForgotPassword';
 
 const instance = axios.create({
-    baseURL: "http://localhost:7542/2.0/",
+    baseURL: 'http://localhost:7542/2.0/',
+    // baseURL: "https://neko-back.herokuapp.com/2.0/",
     withCredentials: true
 });
 
@@ -10,7 +11,7 @@ const instance = axios.create({
 export const authAPI = {
 
     forgotPassword(requestData: ForgotPasswordRequestType) {
-        return axios.post<{info: string}>("https://neko-back.herokuapp.com/2.0/auth/forgot", requestData, {withCredentials: true})
+        return axios.post<{ info: string }>('https://neko-back.herokuapp.com/2.0/auth/forgot', requestData, {withCredentials: true})
     },
 
     auth() {
@@ -18,17 +19,26 @@ export const authAPI = {
     },
 
     login(email: string, password: string, rememberMe: boolean) {
-        return instance.post<LoginResponseType>(`auth/login`, {email, password, rememberMe} ).then(response => response.data)
+        return instance.post<LoginResponseType>(`auth/login`, {
+            email,
+            password,
+            rememberMe
+        }).then(response => response.data)
     },
 
     logout() {
-        return instance.delete<LogoutResponseType>(`auth/me` ).then(response => response.data)
+        return instance.delete<LogoutResponseType>(`auth/me`).then(response => response.data)
     },
-
+    registration(data: RegistrationDataType) {
+        return instance.post<{error?:string}>('auth/register', data).then(response => response.data)
+    }
 
 }
-
-type LoginResponseType= {
+export type RegistrationDataType = {
+    email: string
+    password: string
+}
+type LoginResponseType = {
     _id: string;
     email: string;
     name: string;
@@ -43,7 +53,7 @@ type LoginResponseType= {
 
     error?: string;
 }
-type LogoutResponseType ={
+type LogoutResponseType = {
     info: string
     error: string;
 }
