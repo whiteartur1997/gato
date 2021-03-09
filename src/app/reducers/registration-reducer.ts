@@ -47,7 +47,6 @@ export const registration = (values: RegistrationDataType) => (dispatch: Dispatc
         setTimeout(() => {
             dispatch(setError(null));
         }, 3000)
-        // console.log(e.message)
     })
 }
 
