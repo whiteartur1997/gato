@@ -1,16 +1,19 @@
 import {Dispatch} from "redux"
 import {authAPI} from "../../dal/authApi";
+import {setStatus, SetStatusAC} from "./app-reducer";
 import {ProfileStateType, setProfileDataAC} from "./profile-reducer";
 
 type InitialStateType = {
     email: string,
-    authMe: boolean,
+    authMe: AuthMeType,
     error: string | null,
 }
 
+export type AuthMeType = "" | "authorized" | "unauthorized";
+
 let initialState: InitialStateType = {
     email: "",
-    authMe: false,
+    authMe: "",
     error: null,
 }
 
@@ -48,7 +51,7 @@ export const setEmail = (email: string) => {
     } as const
 }
 
-export const setAuthMe = (authMe: boolean) => {
+export const setAuthMe = (authMe: AuthMeType) => {
     return {
         type: "SET_AUTH_ME",
         authMe
@@ -64,8 +67,8 @@ export const setError = (error: string | null) => {
 
 export const getAuth = () => {
 
-    return (dispatch: Dispatch<DispatchActionTypeLogin>) => {
-
+    return (dispatch: Dispatch<DispatchActionTypeLogin | SetStatusAC>) => {
+        dispatch(setStatus("loading"))
         authAPI.auth().then(data => {
             const profileData: ProfileStateType = {
                 avatar: data.avatar || "",
@@ -73,10 +76,14 @@ export const getAuth = () => {
                 created: data.created,
                 publicCards: data.publicCardPacksCount
             }
-            dispatch(setAuthMe(true));
+            dispatch(setAuthMe("authorized"));
             dispatch(setProfileDataAC(profileData))
-        }).catch(rej => {
-            dispatch(setAuthMe(false))
+            dispatch(setStatus("success"))
+
+        }).catch(e => {
+            dispatch(setAuthMe("unauthorized"))
+            dispatch(setError(e.response.data.error))
+            dispatch(setStatus("error"))
         })
 
 
@@ -86,7 +93,8 @@ export const getAuth = () => {
 
 export const login = (email: string, password: string, rememberMe: boolean) => {
 
-    return (dispatch: Dispatch<DispatchActionTypeLogin>) => {
+    return (dispatch: Dispatch<DispatchActionTypeLogin | SetStatusAC>) => {
+        dispatch(setStatus("loading"))
 
         authAPI.login(email, password, rememberMe).then(res => {
                 const profileData: ProfileStateType = {
@@ -96,12 +104,16 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
                     publicCards: res.publicCardPacksCount
                 }
                 dispatch(setError(null))
-                dispatch(setAuthMe(true))
+                dispatch(setAuthMe("authorized"))
                 dispatch(setEmail(res.email))
                 dispatch(setProfileDataAC(profileData))
+                dispatch(setStatus("success"))
+
             }
         ).catch(e => {
             dispatch(setError(e.response.data.error))
+            dispatch(setAuthMe("unauthorized"))
+            dispatch(setStatus("error"))
         })
     }
 }
@@ -109,9 +121,11 @@ export const login = (email: string, password: string, rememberMe: boolean) => {
 
 export const logout = () => {
 
-    return (dispatch: Dispatch<DispatchActionTypeLogin>) => {
-        authAPI.logout().then(data => {
-            dispatch(setAuthMe(false))
+    return (dispatch: Dispatch<DispatchActionTypeLogin | SetStatusAC>) => {
+        dispatch(setStatus("loading"))
+        authAPI.logout().then(() => {
+            dispatch(setAuthMe("unauthorized"))
+            dispatch(setStatus("success"))
         })
 
 

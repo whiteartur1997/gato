@@ -13,3 +13,22 @@
 .infoWrapper {
     padding: 10px;
 }
+
+
+.profile__logout{
+
+    margin-top: 275px;
+    border-radius: 5px;
+    font-size: 30px;
+    width: 140px;
+    font-weight: 800;
+    cursor: pointer;
+}
+.profile__logout:hover{
+    cursor: pointer;
+    color: tomato;
+}
+.profile__logout:active{
+    cursor: pointer;
+    color: #ae2413;
+}

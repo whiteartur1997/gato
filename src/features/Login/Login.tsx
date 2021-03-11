@@ -1,14 +1,18 @@
 import React from "react"
-import {NavLink, Redirect} from "react-router-dom"
+import {NavLink} from "react-router-dom"
 import style from "./Login.module.css"
 import {FormikValues} from "formik/dist/types";
+import {Preloader} from "../../components/Common/Preloader/Preloader";
+import {StatusType} from "../../app/reducers/app-reducer";
 
 const Login = (props: LoginPropsType) => {
 
 
-    if (props.authMe) return <Redirect to="/profile"/>
     return <div className={style.loginContainer}>
-
+        <div className={style.loginContainer__info}>
+            {props.status === 'loading' && <Preloader/>}
+            {props.status === 'success' && <span className={style.loginContainer__info__success}>Success 😃</span>}
+        </div>
         <h1 className={style.loginContainer__title}>Login</h1>
         <form onSubmit={props.formik.handleSubmit}>
             <div className={style.loginContainer__loginBlock}>
@@ -49,6 +53,7 @@ const Login = (props: LoginPropsType) => {
                     <input className={style.loginContainer__loginBlock__button}
                            type="submit"
                            value={"Sign in"}
+
                     />
                 </div>
 
@@ -59,8 +64,8 @@ const Login = (props: LoginPropsType) => {
 }
 
 type LoginPropsType = {
+    status: StatusType
     formik: FormikValues
-    authMe: boolean
     error: string | null
 }
 

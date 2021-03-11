@@ -2,7 +2,10 @@ import {NavLink} from "react-router-dom"
 import {PATH} from "../../components/Routes/Routes"
 import styles from './Header.module.css'
 
-const Header = (props: HeaderPropsType) => {
+
+
+
+const Header = () => {
     return (
         <div className={styles.header}>
             <nav className={styles.header__nav}>
@@ -45,14 +48,10 @@ const Header = (props: HeaderPropsType) => {
                     </NavLink>
                 </ul>
             </nav>
-            <div hidden={!props.authMe} className={styles.header__logout} onClick={props.onLogoutHandler}><span>Logout</span></div>
         </div>
     )
 }
 
-type HeaderPropsType ={
-    authMe: boolean
-    onLogoutHandler : () => void
-}
+
 
 export default Header
