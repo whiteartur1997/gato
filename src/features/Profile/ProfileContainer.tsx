@@ -15,7 +15,7 @@ const ProfileContainer = () => {
 
     useEffect(() => {
         dispatch(getAuth())
-    }, [])
+    }, [dispatch])
 
     if (isLoggedIn === "unauthorized") {
         return <Redirect to={PATH.LOGIN}/>
@@ -30,8 +30,8 @@ const ProfileContainer = () => {
         onLogoutHandler={onLogoutHandler}
         name={name}
         avatar={avatar}
-        created={publicCards}
-        publicCards={created}
+        created={created}
+        publicCards={publicCards}
     />
 }
 
